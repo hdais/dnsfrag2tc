@@ -11,7 +11,7 @@ Do not forget to delete this iptables rule (`iptables -t raw -F`) after dnsfrag2
 
 ## Example
 ### Before
-Without `dnsfrag2tc`, dig gets large fragmented UDP response.
+Without `dnsfrag2tc`, we get large fragmented UDP response.
 <pre>
 $ <b>dig @199.6.0.30 isc.org MX +dnssec +ignore +bufsize=4096</b>
 
@@ -23,9 +23,9 @@ $ <b>dig @199.6.0.30 isc.org MX +dnssec +ignore +bufsize=4096</b>
 </pre>
 
 ### After
-With `dnsfrag2tc,` we got TC=1 response (actually dnsfrag2tc genarated this).
+With `dnsfrag2tc` we get TC=1 response (actually dnsfrag2tc genarated this).
 <pre>
-$ dig @199.6.0.30 isc.org MX +dnssec +ignore +bufsize=4096
+$ <b>dig @199.6.0.30 isc.org MX +dnssec +ignore +bufsize=4096</b>
 
 ; <<>> DiG 9.10.3-P4-Ubuntu <<>> @199.6.0.30 isc.org MX +dnssec +ignore
 ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 38868
@@ -36,7 +36,7 @@ $ dig @199.6.0.30 isc.org MX +dnssec +ignore +bufsize=4096
 
 dig retries in TCP mode.
 <pre>
-$ dig @199.6.0.30 isc.org MX +dnssec +bufsize=4096
+$ <b>dig @199.6.0.30 isc.org MX +dnssec +bufsize=4096</b>
 
 ;; <b><u>Truncated, retrying in TCP mode.</u></b>
 
@@ -45,6 +45,16 @@ $ dig @199.6.0.30 isc.org MX +dnssec +bufsize=4096
 ;; flags: qr aa rd; QUERY: 1, ANSWER: 4, AUTHORITY: 6, ADDITIONAL: 27
 
 ;; MSG SIZE  rcvd: 3251
+</pre>
+
+`dnsfrag2tc` won't touch non fragmented responses.
+<pre>
+$ <b>dig @8.8.8.8 www.google.com</b>
+; <<>> DiG 9.10.3-P4-Ubuntu <<>> @8.8.8.8 www.google.com
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 29815
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; MSG SIZE  rcvd: 59
 </pre>
 
 ## Requirements
