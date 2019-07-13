@@ -4,8 +4,8 @@ This NFQUEUE function _captures_ **fragmented** UDP DNS response and _replaces_ 
 
 ## Usage
 ```
- iptables -t raw -A PREROUTING -p udp --sport 53 -j NFQUEUE --queue-num 12345
- ./dnsfrag2tc.py 12345
+ iptables -t raw -A PREROUTING -p udp --sport 53 -j NFQUEUE --queue-num 1
+ ./dnsfrag2tc.py 1
 ```
 Do not forget to delete this iptables rule (`iptables -t raw -F`) after dnsfrag2tc exits. Or all DNS messages will be droped.
 
