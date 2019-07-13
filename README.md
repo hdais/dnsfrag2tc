@@ -23,18 +23,7 @@ $ <b>dig @199.6.0.30 isc.org MX +dnssec +ignore +bufsize=4096</b>
 </pre>
 
 ### After
-With `dnsfrag2tc` we get TC=1 response (actually dnsfrag2tc genarated this).
-<pre>
-$ <b>dig @199.6.0.30 isc.org MX +dnssec +ignore +bufsize=4096</b>
-
-; <<>> DiG 9.10.3-P4-Ubuntu <<>> @199.6.0.30 isc.org MX +dnssec +ignore
-;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 38868
-;; flags: qr <b>tc</b> rd; QUERY: 0, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
-
-;; <b>MSG SIZE  rcvd: 12</b>
-</pre>
-
-`dig` retries in TCP mode.
+With `dnsfrag2tc`, `dig` makes queryin TCP mode.
 <pre>
 $ <b>dig @199.6.0.30 isc.org MX +dnssec +bufsize=4096</b>
 
@@ -46,7 +35,16 @@ $ <b>dig @199.6.0.30 isc.org MX +dnssec +bufsize=4096</b>
 
 ;; MSG SIZE  rcvd: 3251
 </pre>
+... This is because we got **TC=1** response (actually dnsfrag2tc genarated this).
+<pre>
+$ <b>dig @199.6.0.30 isc.org MX +dnssec +ignore +bufsize=4096</b>
 
+; <<>> DiG 9.10.3-P4-Ubuntu <<>> @199.6.0.30 isc.org MX +dnssec +ignore
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 38868
+;; flags: qr <b>tc</b> rd; QUERY: 0, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
+
+;; <b>MSG SIZE  rcvd: 12</b>
+</pre>
 `dnsfrag2tc` won't touch non-fragmented responses.
 <pre>
 $ <b>dig @8.8.8.8 www.google.com</b>
