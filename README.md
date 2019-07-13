@@ -1,6 +1,6 @@
 # `dnsfrag2tc` - NFQUEUE function which forces DNS clients to TCP query upon receiving fragmented DNS responses.
 
-This NFQUEUE function *captures* _fragmented_ DNS/UDP/IPv4 response and *replaces* it with _TC=1_ responses. DNS clients will retry DNS query in TCP mode.
+This NFQUEUE function _captures_ **fragmented** UDP DNS response and _replaces_ it with **TC=1** responses. DNS clients will retry DNS query in TCP mode.
 
 ## Usage
 ```
