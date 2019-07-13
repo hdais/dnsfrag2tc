@@ -1,6 +1,6 @@
 # `dnsfrag2tc` - NFQUEUE function which forces DNS clients to TCP query upon receiving fragmented DNS responses.
 
-This NFQUEUE function captures _fragmented_ DNS/UDP/IPv4 response and _replaces_ it with TC=1 responses. DNS clents will retry DNS query via TCP.
+This NFQUEUE function *captures* _fragmented_ DNS/UDP/IPv4 response and *replaces* it with _TC=1_ responses. DNS clients will retry DNS query in TCP mode.
 
 ## Usage
 ```
@@ -34,7 +34,7 @@ $ <b>dig @199.6.0.30 isc.org MX +dnssec +ignore +bufsize=4096</b>
 ;; <b>MSG SIZE  rcvd: 12</b>
 </pre>
 
-dig retries in TCP mode.
+`dig` retries in TCP mode.
 <pre>
 $ <b>dig @199.6.0.30 isc.org MX +dnssec +bufsize=4096</b>
 
@@ -47,7 +47,7 @@ $ <b>dig @199.6.0.30 isc.org MX +dnssec +bufsize=4096</b>
 ;; MSG SIZE  rcvd: 3251
 </pre>
 
-`dnsfrag2tc` won't touch non fragmented responses.
+`dnsfrag2tc` won't touch non-fragmented responses.
 <pre>
 $ <b>dig @8.8.8.8 www.google.com</b>
 ; <<>> DiG 9.10.3-P4-Ubuntu <<>> @8.8.8.8 www.google.com
