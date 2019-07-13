@@ -23,7 +23,7 @@ $ <b>dig @199.6.0.30 isc.org MX +dnssec +ignore +bufsize=4096</b>
 </pre>
 
 ### After
-With `dnsfrag2tc`, `dig` makes queryin TCP mode.
+With `dnsfrag2tc`, `dig` makes query in TCP mode.
 <pre>
 $ <b>dig @199.6.0.30 isc.org MX +dnssec +bufsize=4096</b>
 
