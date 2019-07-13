@@ -29,7 +29,7 @@ $ <b>dig @199.6.0.30 isc.org MX +dnssec +ignore +bufsize=4096</b>
 
 ; <<>> DiG 9.10.3-P4-Ubuntu <<>> @199.6.0.30 isc.org MX +dnssec +ignore
 ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 38868
-;; flags: qr tc rd; QUERY: 0, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
+;; flags: qr <b>tc</b> rd; QUERY: 0, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
 
 ;; <b>MSG SIZE  rcvd: 12</b>
 </pre>
