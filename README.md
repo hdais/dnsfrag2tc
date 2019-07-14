@@ -48,7 +48,7 @@ $ <b>dig @199.6.0.30 isc.org MX +dnssec +ignore +bufsize=4096</b>
 
 ;; <b>MSG SIZE  rcvd: 12</b>
 </pre>
-`dnsfrag2tc` don't touch non-fragmented responses.
+`dnsfrag2tc` doesn't touch non-fragmented responses.
 <pre>
 $ <b>dig @8.8.8.8 www.google.com</b>
 
