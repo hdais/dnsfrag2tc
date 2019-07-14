@@ -6,9 +6,8 @@
 # Requires Python3, Scapy and NetfilterQueue.
 
 # Usage:
-#  iptables -t raw -A PREROUTING -p udp --sport 53 -j NFQUEUE --queue-num 12345 
+#  iptables -t raw -A PREROUTING -p udp --sport 53 -j NFQUEUE --queue-num 12345 --queue-bypass
 #  ./dnsfrag2tc.py 12345
-# don't forget to delete this iptables rule after dnsfrag2tc exits...
 
 from netfilterqueue import NetfilterQueue
 from scapy.all import *
