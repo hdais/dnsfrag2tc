@@ -40,13 +40,13 @@ $ <b>dig @199.6.0.30 isc.org MX +dnssec +bufsize=4096</b>
 </pre>
 ... This is because we got **TC=1** response which dnsfrag2tc generated.
 <pre>
-$ <b>dig @199.6.0.30 isc.org MX +dnssec +ignore +bufsize=4096</b>
+$ dig @199.6.0.30 isc.org MX +dnssec +ignore +bufsize=4096
 
 ; <<>> DiG 9.10.3-P4-Ubuntu <<>> @199.6.0.30 isc.org MX +dnssec +ignore
 ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 38868
 ;; flags: qr <b>tc</b> rd; QUERY: 0, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
 
-;; <b>MSG SIZE  rcvd: 12</b>
+;; MSG SIZE  rcvd: 12
 </pre>
 `dnsfrag2tc` doesn't touch non-fragmented responses.
 <pre>
