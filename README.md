@@ -4,10 +4,9 @@ This NFQUEUE function _captures_ **fragmented** UDP DNS response and _replaces_ 
 
 ## Usage
 ```
- iptables -t raw -A PREROUTING -p udp --sport 53 -j NFQUEUE --queue-num 1
+ iptables -t raw -A PREROUTING -p udp --sport 53 -j NFQUEUE --queue-num 1 --queue-bypass
  ./dnsfrag2tc.py 1
 ```
-Do not forget to delete this iptables rule (`iptables -t raw -F`) after dnsfrag2tc exits. Or all DNS messages will be droped.
 
 ## Example
 ### Before
@@ -48,6 +47,7 @@ $ <b>dig @199.6.0.30 isc.org MX +dnssec +ignore +bufsize=4096</b>
 `dnsfrag2tc` won't touch non-fragmented responses.
 <pre>
 $ <b>dig @8.8.8.8 www.google.com</b>
+
 ; <<>> DiG 9.10.3-P4-Ubuntu <<>> @8.8.8.8 www.google.com
 ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 29815
 ;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
