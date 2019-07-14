@@ -1,4 +1,4 @@
-# `dnsfrag2tc` - NFQUEUE function which forces DNS clients to TCP query upon receiving fragmented DNS responses.
+# `dnsfrag2tc` - forcing DNS clients to retry in TCP mode on fragmented UDP response received
 
 This NFQUEUE function _captures_ **fragmented** UDP DNS response and _replaces_ it with **TC=1** responses. DNS clients will retry DNS query in TCP mode.
 
@@ -7,6 +7,10 @@ This NFQUEUE function _captures_ **fragmented** UDP DNS response and _replaces_ 
  iptables -t raw -A PREROUTING -p udp --sport 53 -j NFQUEUE --queue-num 1 --queue-bypass
  ./dnsfrag2tc.py 1
 ```
+## Requirements
+- [Python3](https://python.org/)
+- [Scapy](https://scapy.net/)
+- [NetfilterQueue](https://pypi.org/project/NetfilterQueue/)
 
 ## Example
 ### Before
@@ -22,7 +26,7 @@ $ <b>dig @199.6.0.30 isc.org MX +dnssec +ignore +bufsize=4096</b>
 </pre>
 
 ### After
-With `dnsfrag2tc`, `dig` makes query in TCP mode.
+If `dnsfrag2tc` enabled, `dig` does query in TCP mode.
 <pre>
 $ <b>dig @199.6.0.30 isc.org MX +dnssec +bufsize=4096</b>
 
@@ -34,7 +38,7 @@ $ <b>dig @199.6.0.30 isc.org MX +dnssec +bufsize=4096</b>
 
 ;; MSG SIZE  rcvd: 3251
 </pre>
-... This is because we got **TC=1** response (actually dnsfrag2tc genarated this).
+... This is because we got **TC=1** response which dnsfrag2tc generated.
 <pre>
 $ <b>dig @199.6.0.30 isc.org MX +dnssec +ignore +bufsize=4096</b>
 
@@ -44,7 +48,7 @@ $ <b>dig @199.6.0.30 isc.org MX +dnssec +ignore +bufsize=4096</b>
 
 ;; <b>MSG SIZE  rcvd: 12</b>
 </pre>
-`dnsfrag2tc` won't touch non-fragmented responses.
+`dnsfrag2tc` don't touch non-fragmented responses.
 <pre>
 $ <b>dig @8.8.8.8 www.google.com</b>
 
@@ -54,8 +58,3 @@ $ <b>dig @8.8.8.8 www.google.com</b>
 
 ;; MSG SIZE  rcvd: 59
 </pre>
-
-## Requirements
-- [Python3](https://python.org/)
-- [Scapy](https://scapy.net/)
-- [NetfilterQueue](https://pypi.org/project/NetfilterQueue/)
